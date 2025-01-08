@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class MySingleList implements IList {
     //节点的内部类
     static class ListNode {
@@ -28,21 +30,47 @@ public class MySingleList implements IList {
     }
     @Override
     public void addFirst(int data) {
-
+        ListNode node = new ListNode(data);
+        if (head != null) {
+            node.next = head;
+        }
+        this.head = node;
     }
 
     @Override
     public void addLast(int data) {
+        ListNode node = new ListNode(data);
+        ListNode cur = this.head;
+        if(this.head == null) {
+            this.head = node;
+        }else {
+            //找到尾巴
+            while (cur.next != null) {
+                cur = cur.next;
+            }
+            //cur执行最后一个节点
+            cur.next = node;
+        }
 
     }
 
     @Override
     public void addIndex(int index, int data) {
+        if(index < 0 || index > size()) {
+            //抛一个自定义异常
+            return;
+        }
 
     }
 
     @Override
     public boolean contains(int key) {
+        ListNode cur = this.head;
+        while (cur != null) {
+            if(cur.val == key) {
+                return true;
+            }else cur = cur.next;
+        }
         return false;
     }
 
