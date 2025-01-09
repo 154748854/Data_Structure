@@ -129,4 +129,37 @@ public class MySingleList implements IList {
             cur = cur.next;
         }
     }
+
+    public ListNode middleNode() {
+//        int count = size();
+//        ListNode cur = this.head;
+//        for (int i = 0; i < count / 2; i++) {
+//            cur = cur.next;
+//        }
+//        return cur;
+        //使用快慢指针
+        ListNode fast = this.head;
+        ListNode slow = this.head;
+        while (fast.next != null && fast != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    public ListNode findKthToTail(int k) {
+        if(k <= 0 || k > size()) {
+            return null;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        for (int i = 0; i < k; i++) {
+            fast = fast.next;
+        }
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
 }
