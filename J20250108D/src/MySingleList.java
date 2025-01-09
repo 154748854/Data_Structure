@@ -81,7 +81,20 @@ public class MySingleList implements IList {
 
     @Override
     public void removeAllKey(int key) {
-
+        if(this.head == null) return;
+        ListNode cur = this.head.next;
+        ListNode prev = this.head;
+        while (cur.next != null) {
+            if(cur.next.val == key) {
+                prev.next = cur.next;
+            }else {
+                prev = cur;
+            }
+            cur = cur.next;
+        }
+        if(head.val == key) {
+            head  = head.next;
+        }
     }
 
     @Override
@@ -97,7 +110,14 @@ public class MySingleList implements IList {
 
     @Override
     public void clear() {
+        ListNode cur = head;
+        while (cur.next != null) {
+            ListNode curNext = cur.next;
 
+            cur.next = null;
+            cur = curNext;
+        }
+        head = null;
     }
 
     @Override
