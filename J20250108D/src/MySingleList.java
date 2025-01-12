@@ -193,4 +193,17 @@ public class MySingleList implements IList {
         return true;
     }
 
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = this.head;
+        ListNode slow = this.head;
+
+        while (true) {
+            if(fast == null || fast.next == null || fast.next.next == null) return false;
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if(fast == slow) return true;
+        }
+    }
+
 }
