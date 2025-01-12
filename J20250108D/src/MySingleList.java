@@ -28,6 +28,7 @@ public class MySingleList implements IList {
 
         this.head = node1;
     }
+
     @Override
     public void addFirst(int data) {
         ListNode node = new ListNode(data);
@@ -162,4 +163,34 @@ public class MySingleList implements IList {
         }
         return slow;
     }
+    public boolean chkPalindrome() {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        //1. 找到中间位置
+        //这里要先写fast != null,因为先写fast.next有可能导致空指针异常
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //2. 翻转
+        ListNode cur = slow.next;
+        while (cur != null) {
+            ListNode curNext = cur.next;
+            cur.next = slow;
+            slow = cur;
+            cur = curNext;
+        }
+
+        //3. 前后 后前
+        while (head != slow) {
+            if(head.val != slow.val) return false;
+            if(head.next == slow) return true;
+            head = head.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
 }
