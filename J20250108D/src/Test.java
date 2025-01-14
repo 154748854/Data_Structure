@@ -28,7 +28,7 @@ public class Test {
         //newH的next就是新列表的头结点
     }
 
-    public static void main2(String[] args) {
+    public static void main3(String[] args) {
         MySingleList mySingleList = new MySingleList();
         mySingleList.addLast(12);
         mySingleList.addLast(23);
