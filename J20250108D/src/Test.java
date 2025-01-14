@@ -1,4 +1,7 @@
 public class Test {
+    public static void main(String[] args) {
+
+    }
     //合并两个有序链表
     public static MySingleList.ListNode twoLists(MySingleList.ListNode head1,
                                           MySingleList.ListNode head2) {
@@ -25,7 +28,7 @@ public class Test {
         //newH的next就是新列表的头结点
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         MySingleList mySingleList = new MySingleList();
         mySingleList.addLast(12);
         mySingleList.addLast(23);

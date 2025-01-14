@@ -38,23 +38,36 @@ public class MyLinkedList implements IList{
 
     @Override
     public void addIndex(int index, int data) {
-        if(index < 0 || index > size()) {
-            //抛出一个异常
+        //检查index的合法性
+        int len = size();
+        if(index < 0 || index > len) {
+            System.out.println("不合法");
+            //抛异常
+        }
+        if(index == 0) {
+            addFirst(data);
             return;
         }
-        ListNode cur = this.head;
-        int count = 0;
-        while (count != index) {
-            cur = cur.next;
-            count++;
+        if(index == len){
+            addLast(data);
+            return;
         }
-        //此时cur就在需要替换的位置
-        ListNode last = cur.prev;
-        ListNode add = new ListNode(data);
-        add.next = cur;
-        add.prev = last;
+        ListNode cur = findIndex(index);
+        ListNode node  = new ListNode(data);
+        node.next = cur;
+        cur.prev.next = node;
+        node.prev = cur.prev;
+        cur.prev = node;
     }
 
+    private ListNode findIndex(int index) {
+        ListNode cur = head;
+        while (index != 0) {
+            cur = cur.next;
+            index--;
+        }
+        return cur;
+    }
     @Override
     public boolean contains(int key) {
         ListNode cur = head;
@@ -68,40 +81,57 @@ public class MyLinkedList implements IList{
     @Override
     public void remove(int key) {
         ListNode cur = this.head;
-        ListNode curNext = cur.next;
-        for (int i = 0; i < size(); i++) {
-            cur.prev = null;
-            cur.next = null;
-            cur = curNext;
-            if(cur.next != null)
-            {
-                curNext = curNext.next;
-            }
+        //一个对象只要不被引用就会被销毁了
+        //和它引不引用别人没有关系
+        while (cur != null) {
+            if(cur.val == key) {
+                if(cur == head) {
+                    head = head.next;
+                    //如果为空，head == null就已经删完了
+                    if (head != null) {
+                        last = null;
+                    }else {
+                        head.prev = null;
+                    }
+                }else {
+                    cur.prev.next = cur.next;
+
+                    if(cur.next == null) {
+                        last = last.prev;
+                    }else{
+                        cur.next.prev = cur.prev;
+                    }
+                }
+                return;
+            }else cur = cur.next;
         }
     }
 
     @Override
     public void removeAllKey(int key) {
-        if(this.head == null) return;
         ListNode cur = this.head;
-        ListNode prev = this.head;
-        ListNode next = this.head;
-        while (cur.next != null) {
-            next = cur.next;
-            prev = cur.prev;
+        //一个对象只要不被引用就会被销毁了
+        //和它引不引用别人没有关系
+        while (cur != null) {
             if(cur.val == key) {
-                cur.next = null;
-                cur.prev = null;
-                prev.next = next;
-                next.prev = prev;
-                cur = next;
+                if(cur == head) {
+                    head = head.next;
+                    //如果为空，head == null就已经删完了
+                    if (head != null) {
+                        last = null;
+                    }else {
+                        head.prev = null;
+                    }
+                }else {
+                    cur.prev.next = cur.next;
 
-            }else {
-                prev = prev.next;
-
-                cur = cur.next;
-            }
-            next = next.next;
+                    if(cur.next == null) {
+                        last = last.prev;
+                    }else{
+                        cur.next.prev = cur.prev;
+                    }
+                }
+            }else cur = cur.next;
         }
     }
 
@@ -137,5 +167,7 @@ public class MyLinkedList implements IList{
             cur = curNext;
         }
         head = null;
+        last = null;
+        //注意如果直接暴力将head 和
     }
 }
