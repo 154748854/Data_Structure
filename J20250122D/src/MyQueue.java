@@ -7,6 +7,7 @@ class MyQueue {
     public MyQueue() {
         s1 = new Stack<>();
         s2 = new Stack<>();
+        //
     }
     
     public void push(int x) {
