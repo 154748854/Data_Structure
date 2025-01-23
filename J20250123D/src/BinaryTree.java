@@ -64,4 +64,87 @@ public class BinaryTree {
         postOrder(root.right);
         System.out.print(root.val+" ");
     }
+
+    public int nodeSize;
+    // 获取树中节点的个数
+    // 递归思路
+    int size(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        nodeSize++;
+        size(root.left);
+        size(root.right);
+        return nodeSize;
+    }
+
+    // 子问题思路
+    int size2(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        return size2(root.left) + size2(root.right) + 1;
+    }
+
+    // 获取叶子节点的个数
+    public int leafSize;
+    int getLeafNodeCount1(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        if(root.left == null && root.right == null) {
+            leafSize++;
+        }
+        getLeafNodeCount1(root.right);
+        getLeafNodeCount1(root.left);
+
+        return leafSize;
+    }
+
+    // 子问题思路
+    int getLeafNodeCount(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        if(root.right == null && root.left == null) {
+            return 1;
+        }
+
+        return getLeafNodeCount(root.left) + getLeafNodeCount(root.right);
+
+    }
+
+    // 获取第K层节点的个数
+    int getKLevelNodeCount(TreeNode root,int k) {
+        if(root == null) return 0;
+        if(k == 1) return 1;
+        return getKLevelNodeCount(root.right, k-1)
+                + getKLevelNodeCount(root.left, k-1);
+        // 这里不能写k-- 是因为k--会改变K值，两个k--就变两次，和我们所需要的不符
+    }
+
+    // 获取二叉树的高度
+    int getHeight(TreeNode root) {
+        if(root == null) return 0;
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+
+        return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+    }
+
+    // 检测值为value的元素是否存在
+    TreeNode find(TreeNode root, char val) {
+        if(root == null) {
+            return null;
+        }
+        if(root.val == val) {
+            return root;
+        }
+        if(find(root.right, val) != null || find(root.left, val) != null) {
+            return root;
+        }
+        return null;
+    }
+
+
 }
