@@ -146,5 +146,23 @@ public class BinaryTree {
         return null;
     }
 
+    public boolean isSubTree(TreeNode root, TreeNode subRoot) {
+        //是不是根节点相同
+        if(root == null || subRoot == null) {
+            return false;
+        }
+        if(isSameTree(root, subRoot)) return true;
+        //判断是不是子树
+        return isSubTree(root.left, subRoot) || isSubTree(root.right, subRoot);
+    }
 
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p == null && q != null || p != null && q == null) return false;
+        if(p == null && q == null) return true;
+        if(q.val != p.val) {
+            return false;
+        }
+        return isSameTree(p.left, q.left)
+                && isSameTree(p.right, q.right);
+    }
 }
