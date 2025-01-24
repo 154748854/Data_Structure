@@ -1,3 +1,7 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
 public class BinaryTree {
     static class TreeNode {
         public char val;
@@ -176,9 +180,65 @@ public class BinaryTree {
         if(leftTree == null && rightTree != null || leftTree != null && rightTree == null)
             return false;
         if(leftTree == null && rightTree == null) return true;
+
         if(leftTree.val != rightTree.val) return false;
+        //这里不能写return true，因为值相同只是局部相同
 
 
         return isSymmetricChild(leftTree.left, rightTree.right) && isSymmetricChild(leftTree.right, rightTree.left);
     }
+
+    //层序遍历
+    void levelOrder(TreeNode root) {
+        if(root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()) {
+            //弹出一个TreeNode给cur
+            TreeNode cur = queue.poll();
+            System.out.print(cur.val+" ");
+
+            if(cur.left != null) {
+                queue.offer(cur.left);
+            }
+            if(cur.right != null) {
+                queue.offer(cur.right);
+            }
+        }
+    }
+
+    // 判断一棵树是不是完全二叉树
+    boolean isCompleteTree(TreeNode root) {
+        if(root == null) return true;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            if(cur != null) {
+                queue.offer(cur.left);
+                queue.offer(cur.right);
+            }else {//cur拿到了空
+                break;//结束这个循环
+            }
+        }
+
+        //需要判断队列当中是否有非空的元素
+        while (!queue.isEmpty()) {
+            //当弹出null给cur之后，要对队列一个一个进行判断，看是不是全为null
+            TreeNode tmp = queue.peek();
+            if(tmp == null) {
+                //如果是null就从队列中poll
+                 queue.poll();
+            }else {
+                //如果队列中有非null元素，则说明了不是完全二叉树
+                return false;
+            }
+        }
+        //能走到这里，说明队列空了
+        return true;
+    }
+
 }
