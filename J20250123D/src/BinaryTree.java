@@ -165,4 +165,20 @@ public class BinaryTree {
         return isSameTree(p.left, q.left)
                 && isSameTree(p.right, q.right);
     }
+
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) return true;
+
+
+        return isSymmetricChild(root.left, root.right);
+    }
+    private boolean isSymmetricChild(TreeNode leftTree, TreeNode rightTree) {
+        if(leftTree == null && rightTree != null || leftTree != null && rightTree == null)
+            return false;
+        if(leftTree == null && rightTree == null) return true;
+        if(leftTree.val != rightTree.val) return false;
+        //genius
+
+        return isSymmetricChild(leftTree.left, rightTree.right) && isSymmetricChild(leftTree.right, rightTree.left);
+    }
 }
