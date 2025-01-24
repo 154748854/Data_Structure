@@ -177,7 +177,7 @@ public class BinaryTree {
             return false;
         if(leftTree == null && rightTree == null) return true;
         if(leftTree.val != rightTree.val) return false;
-        //genius
+
 
         return isSymmetricChild(leftTree.left, rightTree.right) && isSymmetricChild(leftTree.right, rightTree.left);
     }
