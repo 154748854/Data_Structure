@@ -85,6 +85,30 @@ public class BinaryTree {
         System.out.print(root.val+" ");
     }
 
+    void postOrderNor(TreeNode root) {
+        if(root == null) return;
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        TreeNode prev = null;
+        while(cur != null || !stack.isEmpty()){
+            while(cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            TreeNode top = stack.peek();
+            cur = top.right;
+            if(top.right == null || top.right == prev) {
+                System.out.println(top.val+" ");
+                stack.pop();
+                prev = top;
+            }else {
+                cur = top.right;
+            }
+        }
+
+    }
+
     public int nodeSize;
     // 获取树中节点的个数
     // 递归思路
