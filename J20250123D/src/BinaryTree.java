@@ -241,4 +241,15 @@ public class BinaryTree {
         return true;
     }
 
+    public TreeNode lowerCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null) return null;
+        if(root == p) return p;
+        if(root == q) return q;
+        if(root.left != null && root.right != null) return root;
+        else if (root.left == null && root.right != null) {
+            return lowerCommonAncestor(root.right,p,q);
+        }else {
+            return lowerCommonAncestor(root.left,p,q);
+        }
+    }
 }
