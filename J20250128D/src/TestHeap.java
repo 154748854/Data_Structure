@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class TestHeap {
     private int[] elem;
     public int usedSize;//记录当前堆当中有效的数据个数
@@ -44,9 +46,7 @@ public class TestHeap {
             }
             // 走完if语句 child存的是左右孩子当中较大的那一个的下标
             if(elem[child] > elem[parent]) {
-                int tmp = elem[child];
-                elem[child] = elem[parent];
-                elem[parent] = tmp;
+                swap(elem[child], elem[parent]);
                 parent = child;
                 child = parent*2 + 1;
             }else {
@@ -55,7 +55,52 @@ public class TestHeap {
         }
     }
 
+    public void push(int val) {
+        //满了
+        if(isFull()) {
+            elem = Arrays.copyOf(elem, elem.length*2);
+        }
+        elem[usedSize] = val;
+        //向上调整
+        siftUp(usedSize);
+        //
+        usedSize++;
+    }
 
+    public void siftUp(int child) {
+        int parent = (child -1)/2;
+        while (child > 0) {
+            if(elem[child] > elem[parent]) {
+                swap(child,parent);
+                child = parent;
+                parent = (child-1)/2;
+            }else {
+                break;
+            }
+        }
+    }
 
+    public boolean isFull() {
+        return usedSize == elem.length;
+    }
+
+    public void swap(int i, int j) {
+        int tmp = elem[i];
+        elem[i] = elem[j];
+        elem[j] = tmp;
+    }
+
+    public int pop() {
+        if(empty()) return -1;
+        int oldVal = elem[0];
+        swap(0,usedSize-1);
+        usedSize--;
+        siftDown(0,usedSize);
+        return oldVal;
+    }
+
+    public boolean empty() {
+        return usedSize == 0;
+    }
 
 }

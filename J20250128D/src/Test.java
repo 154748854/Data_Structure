@@ -5,5 +5,6 @@ public class Test {
         testHeap.initElem(array);
 
         testHeap.createHeap();
+        //testHeap.pop();
     }
 }
