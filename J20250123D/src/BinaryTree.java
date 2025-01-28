@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class BinaryTree {
@@ -58,12 +59,27 @@ public class BinaryTree {
         System.out.print(root.val+" ");
         inOrder(root.right);
     }
+    //左 根 右
+    void inOrderNor(TreeNode root) {
+        if(root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while(!stack.isEmpty() || cur != null) {
+            while(cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            TreeNode top = stack.pop();
+            System.out.print(top.val+" ");
+            cur = top.right;
+        }
+
+    }
     // 后续遍历 左右根
     void postOrder(TreeNode root) {
         if(root == null) {
             return;
         }
-
         postOrder(root.left);
         postOrder(root.right);
         System.out.print(root.val+" ");
@@ -251,5 +267,23 @@ public class BinaryTree {
         }else {
             return lowerCommonAncestor(root.left,p,q);
         }
+    }
+
+    void preOrderNor(TreeNode root) {
+        if(root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+
+        while(cur != null || !stack.isEmpty()) {
+            while(cur != null) {
+                stack.push(cur);
+                System.out.println(cur.val+" ");
+                cur = cur.left;
+            }
+
+            TreeNode top = stack.pop();
+            cur = top.right;
+        }
+
     }
 }

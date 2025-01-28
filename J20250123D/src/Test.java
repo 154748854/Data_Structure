@@ -6,6 +6,9 @@ public class Test {
         binaryTree.preOrder(root);
         System.out.println();
         binaryTree.inOrder(root);
+        System.out.print("=========================");
+        System.out.println();
+        binaryTree.inOrderNor(root);
         System.out.println();
         binaryTree.postOrder(root);
         System.out.println();
