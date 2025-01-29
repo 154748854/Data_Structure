@@ -6,7 +6,6 @@ public class Test {
         priorityQueue.offer(5);
         priorityQueue.offer(6);
         priorityQueue.offer(10);
-
         System.out.println(priorityQueue.poll());
         System.out.println(priorityQueue.poll());
     }
