@@ -9,6 +9,7 @@ public class Test {
 
         System.out.println(priorityQueue.poll());
         System.out.println(priorityQueue.poll());
+
     }
 
     public static void main1(String[] args) {
