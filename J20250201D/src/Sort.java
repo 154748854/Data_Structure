@@ -201,6 +201,30 @@ public class Sort {
        }
        swap(array,left,i);
        return i;
-
     }
+
+    private static int partitionHole(int[] array, int left, int right) {
+       int tmp = array[left];
+
+       while (left < right) {
+           while (left < right && array[right] >= tmp) {
+               right--;
+           }
+           array[left] = array[right];
+
+           while (left > right && array[left] <= tmp) {
+               left++;
+           }
+           array[right] = array[left];
+       }
+       array[left] = tmp;
+       return left;
+    }
+    /**
+     * 前后指针法
+     * 总结：
+     * 1. Hoare
+     * 2. 挖坑法
+     * 3. 前后指针法
+     */
 }
