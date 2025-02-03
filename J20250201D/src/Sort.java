@@ -1,4 +1,4 @@
-
+import java.util.Stack;
 
 public class Sort {
     /**
@@ -10,6 +10,22 @@ public class Sort {
             int tmp = array[i];
             int j = i-1;
             for (; j >= 0; j--) {
+                if(array[j] > tmp) {
+                    array[j+1] = array[j];
+                }else {
+                    break;
+                }
+            }
+            array[j+1] = tmp;
+        }
+    }
+
+    public static void insertSort(int[] array, int left,int right) {
+        for (int i = left+1; i <= right; i++) {
+            int tmp = array[i];
+            int j = i-1;
+            for (; j >= left; j--) {
+                //这里加不加等号 和稳定有关系
                 if(array[j] > tmp) {
                     array[j+1] = array[j];
                 }else {
@@ -156,13 +172,50 @@ public class Sort {
    }
 
    private static void quick(int[] array, int start, int end) {
-
        if(start >= end) {
            return;
        }
+       if(end - start+1 < 15) {
+           insertSort(array,start,end);
+           return;
+       }
+       int index = middleNum(array,start,end);
+       swap(array,index,start);
+       //中间数法
        int pivot = partitionHoare(array,start,end);
        quick(array,start,pivot-1);
        quick(array,pivot+1,end);
+   }
+
+   public static void quickSortNor(int[] array) {
+       int start = 0;
+       int end = array.length-1;
+       Stack<Integer> stack = new Stack<>();
+       int pivot = partitionHoare(array,start,end);
+       if(pivot-1 > start) {
+           //说明左边有两个元素需要放进栈
+           stack.push(start);
+           stack.push(pivot-1;
+       }
+       if(pivot+1 < end) {
+           stack.push(pivot+1);
+           stack.push(end);
+       }
+       while(!stack.isEmpty()) {
+           end = stack.pop();
+           start = stack.pop();
+           pivot = partitionHoare(array, start, end);
+           if(pivot-1 > start) {
+               //说明左边有两个元素需要放进栈
+               stack.push(start);
+               stack.push(pivot-1;
+           }
+           if(pivot+1 < end) {
+               stack.push(pivot+1);
+               stack.push(end);
+           }
+       }
+
    }
 
 //   private static int partitionHoare(int[] array, int left, int right) {
@@ -227,4 +280,50 @@ public class Sort {
      * 2. 挖坑法
      * 3. 前后指针法
      */
+    //=======================================================================
+
+    /**
+     * 求中位数的下标
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    private static int middleNum(int[] array, int left ,int right) {
+        int mid = (left + right)/2;
+        if(array[left] < array[right]) {
+            if(array[mid] < array[left]) {
+                return left;
+            }else if(array[mid] > array[right]) {
+                return right;
+            }
+            else return mid;
+
+        }else {
+            if(array[mid] < array[right]) {
+                return right;
+            }else if(array[mid] > array[left]) {
+                return left;
+            }
+            else return mid;
+        }
+    }
+
+
+    public static void mergeSort(int[] array) {
+
+    }
+
+    private static void mergeSortFun(int[] array, int start, int end) {
+        if(start >= end) {
+            //递归的结束条件
+            return;
+        }
+        int mid = (start+end)/2;
+        //分解
+        mergeSortFun(array,start,mid);
+        mergeSortFun(array,mid+1,end);
+        //合并
+        merge();
+    }
 }
