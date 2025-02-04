@@ -311,7 +311,7 @@ public class Sort {
 
 
     public static void mergeSort(int[] array) {
-
+        mergeSortFun(array,0,array.length-1);
     }
 
     private static void mergeSortFun(int[] array, int start, int end) {
@@ -324,6 +324,29 @@ public class Sort {
         mergeSortFun(array,start,mid);
         mergeSortFun(array,mid+1,end);
         //合并
-        merge();
+        merge(array,start,mid,end);
+    }
+
+    private static void merge(int[] array, int left, int mid, int right) {
+        int s1 = left;
+        int e1 = mid;
+        int s2 = mid+1;
+        int e2 = right;
+        int[] tmpArr = new int[right-left+1];
+        int k = 0;//tmpArr的下标
+        while (s1 <= e1 && s2 <= e2) {
+            //两个归并段都有数据
+            if(array[s1] <= array[s2]) {
+
+            }else {
+                tmpArr[k++] = array[s2++];
+            }
+        }
+        while (s1 <= e1) {
+            tmpArr[k++] = array[s1++];
+        }
+        while (s2 <= e2) {
+            tmpArr[k++] = array[s1++];
+        }
     }
 }
