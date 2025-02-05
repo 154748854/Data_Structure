@@ -48,8 +48,8 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        int[] array = {100,3,15,61,17,8};
-        Sort.quickSort(array);
+        int[] array = {100,3,15,61,17,8,7};
+        Sort.mergeSortNor(array);
         System.out.println(Arrays.toString(array));
     }
 

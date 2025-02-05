@@ -195,7 +195,7 @@ public class Sort {
        if(pivot-1 > start) {
            //说明左边有两个元素需要放进栈
            stack.push(start);
-           stack.push(pivot-1;
+           stack.push(pivot-1);
        }
        if(pivot+1 < end) {
            stack.push(pivot+1);
@@ -208,7 +208,7 @@ public class Sort {
            if(pivot-1 > start) {
                //说明左边有两个元素需要放进栈
                stack.push(start);
-               stack.push(pivot-1;
+               stack.push(pivot-1);
            }
            if(pivot+1 < end) {
                stack.push(pivot+1);
@@ -337,7 +337,7 @@ public class Sort {
         while (s1 <= e1 && s2 <= e2) {
             //两个归并段都有数据
             if(array[s1] <= array[s2]) {
-
+                tmpArr[k++] = array[s1++];
             }else {
                 tmpArr[k++] = array[s2++];
             }
@@ -346,7 +346,61 @@ public class Sort {
             tmpArr[k++] = array[s1++];
         }
         while (s2 <= e2) {
-            tmpArr[k++] = array[s1++];
+            tmpArr[k++] = array[s2++];
+        }
+
+        //把排好序的数组拷贝回原来的array中
+        for (int i = 0; i < tmpArr.length; i++) {
+            array[i+left] = tmpArr[i];
+        }
+    }
+    public static void mergeSortNor(int[] array) {
+
+        int gap = 1;//每组几个数据
+        while (gap < array.length) {
+
+            for (int i = 0; i < array.length; i+=(gap*2)) {
+                int left = i;
+                int mid = left + gap-1;
+                int right = mid + gap;
+                //如果越界，所以条件是》=array。legth
+                if(mid >= array.length) {
+                    mid = array.length-1;
+                }
+                if(right >= array.length) {
+                    right = array.length-1;
+                }
+                merge(array,left,mid,right);
+            }
+
+            gap *= 2;
+        }
+    }
+
+    public static void countSort(int[] array) {
+        int maxVal = array[0];
+        int minVal = array[0];
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] > maxVal) {
+                maxVal = array[i];
+            }
+            if(array[i] < minVal) {
+                minVal = array[0];
+            }
+        }
+        int[] count = new int[maxVal-minVal+1];
+        //遍历array数组，存储数据出现次数
+        for (int i = 0; i < array.length; i++) {
+            count[array[i] - minVal]++;
+        }
+        int index = 0;
+        //需要遍历count数组，把实际数据写回array数组
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+               array[index] = i + minVal;
+               index++;
+               count[i]--;
+            }
         }
     }
 }
