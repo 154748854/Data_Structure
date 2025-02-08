@@ -1,13 +1,34 @@
 import binarysearchtree.BinarySearchTree;
+import demo1.HashBuck;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
+        HashBuck hashBuck = new HashBuck();
+        hashBuck.put(1,11);
+        hashBuck.put(2,22);
+        hashBuck.put(19,99);
+        hashBuck.put(5,55);
+        hashBuck.put(6,66);
+        hashBuck.put(7,77);
+        hashBuck.put(8,88);
+        hashBuck.put(4,44);
 
+        System.out.println(hashBuck.get(9));
+    }
+    public static void main3(String[] args) {
+        Set<String> set = new TreeSet<>();
+        set.add("hello");
+        set.add("the");
+        set.add("sunny");
+
+        System.out.println(set);
+
+        Iterator<String> it = set.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
     public static void main2(String[] args) {
         Map<String,Integer> map = new TreeMap<>();
